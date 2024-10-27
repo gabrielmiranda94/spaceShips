@@ -1,5 +1,5 @@
 package com.w2m.spaceShips.service;
-import com.w2m.spaceShips.application.service.SpaceshipService;
+import com.w2m.spaceShips.application.service.SpaceshipServiceImpl;
 import com.w2m.spaceShips.domain.model.Spaceship;
 import com.w2m.spaceShips.application.ports.output.SpaceshipRepository;
 import org.junit.jupiter.api.Test;
@@ -11,13 +11,13 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class SpaceshipServiceTest {
+public class SpaceshipServiceImplTest {
 
     @Mock
     private SpaceshipRepository spaceshipRepository;
 
     @InjectMocks
-    private SpaceshipService spaceshipService;
+    private SpaceshipServiceImpl spaceshipService;
 
     @Test
     void testSaveSpaceship() {

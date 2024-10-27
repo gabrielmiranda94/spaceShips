@@ -1,14 +1,19 @@
-package com.w2m.spaceShips.repositiry;
+package com.w2m.spaceShips.application.ports.output;
 
-
-import com.w2m.spaceShips.domain.Spaceship;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
+import com.w2m.spaceShips.domain.model.Spaceship;
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-public interface SpaceshipRepository extends JpaRepository<Spaceship, Long> {
+public interface SpaceshipRepository {
+
+    List<Spaceship> findByName(String name);
+    Optional<Spaceship> findById(Long id);
+    Spaceship save(Spaceship spaceship);
+    void deleteById(Long id);
+    List<Spaceship> findAll();
 
     List<Spaceship> findByNameContaining(String name);
+
+    boolean existsById(Long id);
+
 }
