@@ -15,7 +15,6 @@ public class SpaceshipController {
     @Autowired
     private SpaceshipService spaceshipService;
 
-
     @GetMapping
     public List<Spaceship> getAllSpaceships() {
         return spaceshipService.findAll();
