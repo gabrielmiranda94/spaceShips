@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic(); // Usa autenticación básica
+                .httpBasic();
         return http.build();
     }
 

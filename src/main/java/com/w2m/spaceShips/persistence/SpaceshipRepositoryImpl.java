@@ -1,8 +1,8 @@
-package com.w2m.spaceShips.adapters.persistence;
+package com.w2m.spaceShips.persistence;
 
-import com.w2m.spaceShips.adapters.persistence.entity.SpaceshipEntity;
-import com.w2m.spaceShips.adapters.persistence.repository.JpaSpaceshipRepository;
-import com.w2m.spaceShips.application.ports.output.SpaceshipRepository;
+import com.w2m.spaceShips.entity.SpaceshipEntity;
+import com.w2m.spaceShips.repository.JpaSpaceshipRepository;
+import com.w2m.spaceShips.output.SpaceshipRepository;
 import com.w2m.spaceShips.domain.model.Spaceship;
 import org.springframework.stereotype.Component;
 

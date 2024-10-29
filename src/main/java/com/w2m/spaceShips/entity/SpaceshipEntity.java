@@ -1,4 +1,4 @@
-package com.w2m.spaceShips.adapters.persistence.entity;
+package com.w2m.spaceShips.entity;
 
 
 import jakarta.persistence.Entity;

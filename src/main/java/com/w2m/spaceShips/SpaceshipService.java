@@ -1,6 +1,6 @@
-package com.w2m.spaceShips.application.ports.input;
+package com.w2m.spaceShips;
 
-import com.w2m.spaceShips.adapters.api.dto.UpdateSpaceshipDTO;
+import com.w2m.spaceShips.dto.UpdateSpaceshipDTO;
 import com.w2m.spaceShips.domain.model.Spaceship;
 
 import java.util.List;

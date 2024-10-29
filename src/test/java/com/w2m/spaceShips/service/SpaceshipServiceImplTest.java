@@ -1,7 +1,6 @@
 package com.w2m.spaceShips.service;
-import com.w2m.spaceShips.application.service.SpaceshipServiceImpl;
 import com.w2m.spaceShips.domain.model.Spaceship;
-import com.w2m.spaceShips.application.ports.output.SpaceshipRepository;
+import com.w2m.spaceShips.output.SpaceshipRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

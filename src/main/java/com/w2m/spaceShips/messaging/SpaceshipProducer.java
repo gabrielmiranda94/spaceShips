@@ -1,4 +1,4 @@
-package com.w2m.spaceShips.adapters.messaging;
+package com.w2m.spaceShips.messaging;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

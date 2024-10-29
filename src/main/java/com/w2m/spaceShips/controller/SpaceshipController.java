@@ -1,10 +1,11 @@
-package com.w2m.spaceShips.adapters.api.controller;
+package com.w2m.spaceShips.controller;
 
 
-import com.w2m.spaceShips.adapters.api.dto.SpaceshipDTO;
-import com.w2m.spaceShips.adapters.api.dto.UpdateSpaceshipDTO;
+import com.w2m.spaceShips.dto.SpaceshipDTO;
+import com.w2m.spaceShips.dto.UpdateSpaceshipDTO;
+import com.w2m.spaceShips.mapper.SpaceshipMapper;
 import com.w2m.spaceShips.domain.model.Spaceship;
-import com.w2m.spaceShips.application.service.SpaceshipServiceImpl;
+import com.w2m.spaceShips.service.SpaceshipServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,25 +21,31 @@ public class SpaceshipController {
     private SpaceshipServiceImpl spaceshipService;
 
     @GetMapping
-    public List<SpaceshipDTO> getAllSpaceships() {
-        return spaceshipService.findAll().stream()
+    public ResponseEntity<List<SpaceshipDTO>> getAllSpaceships() {
+        return ResponseEntity.ok(spaceshipService.findAll().stream()
                 .map(spaceship -> new SpaceshipDTO(
                         spaceship.getId(),
                         spaceship.getName(),
                         spaceship.getModel(),
                         spaceship.getManufacturer(),
                         spaceship.getCrewCapacity()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public SpaceshipDTO getSpaceshipById(@PathVariable Long id) {
-        Spaceship spaceship = spaceshipService.findById(id).get();
-        return new SpaceshipDTO(spaceship.getId(), spaceship.getName(), spaceship.getModel(), spaceship.getManufacturer(), spaceship.getCrewCapacity());
+    public ResponseEntity<SpaceshipDTO> getSpaceshipById(@PathVariable Long id) {
+        Spaceship spaceship = spaceshipService.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Spaceship not found with id: " + id));
+
+/*
+        kafkaService.produce("/spaceships/" + id, "user");
+*/
+
+        return ResponseEntity.ok(SpaceshipMapper.INSTANCE.spaceshipToSpaceshipDTO(spaceship));
     }
 
     @PostMapping
-    public SpaceshipDTO createSpaceship(@RequestBody SpaceshipDTO spaceshipDTO) {
+    public ResponseEntity<SpaceshipDTO> createSpaceship(@RequestBody SpaceshipDTO spaceshipDTO) {
         Spaceship spaceship = spaceshipService.save(
                 Spaceship.builder()
                         .name(spaceshipDTO.getName())
@@ -47,15 +54,15 @@ public class SpaceshipController {
                         .crewCapacity(spaceshipDTO.getCrewCapacity())
                         .build()
         );
-        return new SpaceshipDTO(spaceship.getId(), spaceship.getName(), spaceship.getModel(), spaceship.getManufacturer(), spaceship.getCrewCapacity());
+        return ResponseEntity.ok(SpaceshipMapper.INSTANCE.spaceshipToSpaceshipDTO(spaceship));
 
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Spaceship> updateSpaceship(@PathVariable Long id, @RequestBody Spaceship spaceship) {
+    public ResponseEntity<SpaceshipDTO> updateSpaceship(@PathVariable Long id, @RequestBody Spaceship spaceship) {
         if (spaceshipService.findById(id).isPresent()) {
             spaceship.setId(id);
-            return ResponseEntity.ok(spaceshipService.save(spaceship));
+            return ResponseEntity.ok(SpaceshipMapper.INSTANCE.spaceshipToSpaceshipDTO(spaceshipService.save(spaceship)));
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -63,13 +70,13 @@ public class SpaceshipController {
 
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Spaceship> updateSpaceshipPartial(
+    public ResponseEntity<SpaceshipDTO> updateSpaceshipPartial(
             @PathVariable Long id,
             @RequestBody UpdateSpaceshipDTO updateSpaceshipDTO) {
 
         try {
             Spaceship updatedSpaceship = spaceshipService.updatePartial(id, updateSpaceshipDTO);
-            return ResponseEntity.ok(updatedSpaceship);
+            return ResponseEntity.ok(SpaceshipMapper.INSTANCE.spaceshipToSpaceshipDTO(updatedSpaceship));
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
