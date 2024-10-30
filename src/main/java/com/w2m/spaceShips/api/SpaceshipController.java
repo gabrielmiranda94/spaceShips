@@ -53,6 +53,7 @@ public class SpaceshipController {
     @GetMapping("/get-spaceship-by-id/{id}")
     public ResponseEntity<SpaceshipDTO> getSpaceshipById(
             @Parameter(description = "ID of the spaceship") @PathVariable Long id) {
+        eventProducer.sendEvent();
         Spaceship spaceship = spaceshipService.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Spaceship not found with id: " + id));
         return ResponseEntity.ok(spaceshipMapper.spaceshipToSpaceshipDTO(spaceship));
@@ -63,6 +64,7 @@ public class SpaceshipController {
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = SpaceshipDTO.class)))
     @PostMapping("/create-spaceship")
     public ResponseEntity<SpaceshipDTO> createSpaceship(@RequestBody SpaceshipDTO spaceshipDTO) {
+        eventProducer.sendEvent();
         Spaceship spaceship = spaceshipService.save(
                 Spaceship.builder()
                         .name(spaceshipDTO.getName())
@@ -84,6 +86,7 @@ public class SpaceshipController {
     public ResponseEntity<SpaceshipDTO> updateSpaceship(
             @Parameter(description = "ID of the spaceship to update") @PathVariable Long id,
             @RequestBody SpaceshipDTO spaceshipDTO) {
+        eventProducer.sendEvent();
         if (spaceshipService.findById(id).isPresent()) {
             return ResponseEntity.ok(spaceshipMapper.spaceshipToSpaceshipDTO(spaceshipService.save(
                     Spaceship.builder()
@@ -108,6 +111,7 @@ public class SpaceshipController {
     public ResponseEntity<SpaceshipDTO> updateSpaceshipPartial(
             @Parameter(description = "ID of the spaceship to partially update") @PathVariable Long id,
             @RequestBody UpdateSpaceshipDTO updateSpaceshipDTO) {
+        eventProducer.sendEvent();
         try {
             Spaceship updatedSpaceship = spaceshipService.updatePartial(id, updateSpaceshipDTO);
             return ResponseEntity.ok(spaceshipMapper.spaceshipToSpaceshipDTO(updatedSpaceship));
@@ -123,6 +127,7 @@ public class SpaceshipController {
     })
     @DeleteMapping("/delete-spaceship/{id}")
     public ResponseEntity<Void> deleteSpaceship(@Parameter(description = "ID of the spaceship to delete") @PathVariable Long id) {
+        eventProducer.sendEvent();
         try {
             spaceshipService.deleteSpaceshipById(id);
             return ResponseEntity.noContent().build();
@@ -137,6 +142,7 @@ public class SpaceshipController {
     @GetMapping("/search-by-param-name")
     public ResponseEntity<List<SpaceshipDTO>> findByNameParam(
             @Parameter(description = "Name parameter to search for") @RequestParam String nameParam) {
+        eventProducer.sendEvent();
         return ResponseEntity.ok(spaceshipService.findByNameParam(nameParam).stream()
                 .map(spaceship -> spaceshipMapper.spaceshipToSpaceshipDTO(spaceship))
                 .collect(Collectors.toList()));

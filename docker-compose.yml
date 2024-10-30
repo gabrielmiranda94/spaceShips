@@ -9,8 +9,8 @@ services:
   kafka:
     image: wurstmeister/kafka:latest
     ports:
-      - "9092:9092"  # Puerto para el cliente externo
-      - "29092:29092"  # Puerto interno para la comunicación entre brokers
+      - "9092:9092"
+      - "29092:29092"
     environment:
       KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:29092,OUTSIDE://localhost:9092
       KAFKA_LISTENERS: INSIDE://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
