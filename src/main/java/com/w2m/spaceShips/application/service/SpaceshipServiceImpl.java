@@ -1,7 +1,8 @@
-package com.w2m.spaceShips.service;
-import com.w2m.spaceShips.dto.UpdateSpaceshipDTO;
-import com.w2m.spaceShips.SpaceshipService;
-import com.w2m.spaceShips.output.SpaceshipRepository;
+package com.w2m.spaceShips.application.service;
+import com.w2m.spaceShips.application.dto.UpdateSpaceshipDTO;
+import com.w2m.spaceShips.application.ports.input.SpaceshipService;
+import com.w2m.spaceShips.application.ports.output.EventProducer;
+import com.w2m.spaceShips.application.ports.output.SpaceshipRepository;
 import com.w2m.spaceShips.domain.model.Spaceship;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class SpaceshipServiceImpl implements SpaceshipService {
 
     @Override
     public Optional<Spaceship> findById(Long id) {
+
         return spaceshipRepository.findById(id);
     }
 
@@ -67,6 +69,11 @@ public class SpaceshipServiceImpl implements SpaceshipService {
         } else {
             throw new EntityNotFoundException("Spaceship not found with id: " + id);
         }
+    }
+
+    @Override
+    public List<Spaceship> findByNameParam(String nameParam) {
+        return spaceshipRepository.findByNameContaining(nameParam);
     }
 
     @Override

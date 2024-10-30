@@ -1,4 +1,4 @@
-package com.w2m.spaceShips.dto;
+package com.w2m.spaceShips.application.dto;
 
 
 import lombok.Data;

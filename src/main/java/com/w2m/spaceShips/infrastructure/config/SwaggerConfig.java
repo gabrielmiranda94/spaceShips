@@ -1,4 +1,4 @@
-package com.w2m.spaceShips.config;
+package com.w2m.spaceShips.infrastructure.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -14,9 +14,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("API de Spaceships")
+                        .title("Spaceships´ API")
                         .version("1.0.0")
-                        .description("Documentación de la API para la gestión de naves espaciales")
+                        .description("API´s documentation of spaceships´ API")
                 );
     }
 }

@@ -1,4 +1,4 @@
-package com.w2m.spaceShips.config;
+package com.w2m.spaceShips.infrastructure.config;
 
 
 import org.springframework.context.annotation.Bean;

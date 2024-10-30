@@ -1,4 +1,4 @@
-package com.w2m.spaceShips.output;
+package com.w2m.spaceShips.application.ports.output;
 
 import com.w2m.spaceShips.domain.model.Spaceship;
 import java.util.List;

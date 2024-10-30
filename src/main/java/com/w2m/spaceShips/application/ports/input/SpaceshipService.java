@@ -1,6 +1,6 @@
-package com.w2m.spaceShips;
+package com.w2m.spaceShips.application.ports.input;
 
-import com.w2m.spaceShips.dto.UpdateSpaceshipDTO;
+import com.w2m.spaceShips.application.dto.UpdateSpaceshipDTO;
 import com.w2m.spaceShips.domain.model.Spaceship;
 
 import java.util.List;
@@ -15,5 +15,7 @@ public interface SpaceshipService {
     Spaceship updateSpaceship(Long id, Spaceship spaceship);
     void deleteSpaceshipById(Long id);
     Spaceship updatePartial(Long id, UpdateSpaceshipDTO updateSpaceshipDTO);
+    List<Spaceship> findByNameParam(String nameParam);
+
 
 }

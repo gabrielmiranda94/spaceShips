@@ -1,8 +1,8 @@
-package com.w2m.spaceShips.persistence;
+package com.w2m.spaceShips.infrastructure.persistence;
 
-import com.w2m.spaceShips.entity.SpaceshipEntity;
-import com.w2m.spaceShips.repository.JpaSpaceshipRepository;
-import com.w2m.spaceShips.output.SpaceshipRepository;
+import com.w2m.spaceShips.domain.entity.SpaceshipEntity;
+import com.w2m.spaceShips.infrastructure.repository.JpaSpaceshipRepository;
+import com.w2m.spaceShips.application.ports.output.SpaceshipRepository;
 import com.w2m.spaceShips.domain.model.Spaceship;
 import org.springframework.stereotype.Component;
 
@@ -54,7 +54,10 @@ public class SpaceshipRepositoryImpl implements SpaceshipRepository {
 
     @Override
     public List<Spaceship> findByNameContaining(String name) {
-        return null;
+        return jpaSpaceshipRepository.findByNameContaining(name)
+                .stream()
+                .map(this::mapToDomain)
+                .collect(Collectors.toList());
     }
 
     @Override
