@@ -8,10 +8,6 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface SpaceShipMapper {
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "model", target = "model")
-    @Mapping(source = "manufacturer", target = "manufacturer")
-    @Mapping(source = "crewCapacity", target = "crewCapacity")
-    SpaceshipDTO spaceshipToSpaceshipDTO(Spaceship spaceship);
+
+    SpaceshipDTO spaceshipToSpaceshipsDTO(Spaceship spaceship);
 }

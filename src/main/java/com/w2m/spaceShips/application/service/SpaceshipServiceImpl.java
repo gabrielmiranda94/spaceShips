@@ -1,7 +1,6 @@
 package com.w2m.spaceShips.application.service;
 import com.w2m.spaceShips.application.dto.UpdateSpaceshipDTO;
 import com.w2m.spaceShips.application.ports.input.SpaceshipService;
-import com.w2m.spaceShips.application.ports.output.EventProducer;
 import com.w2m.spaceShips.application.ports.output.SpaceshipRepository;
 import com.w2m.spaceShips.domain.model.Spaceship;
 import jakarta.persistence.EntityNotFoundException;

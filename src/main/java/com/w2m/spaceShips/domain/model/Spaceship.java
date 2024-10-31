@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@Entity
 public class Spaceship {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String model;
     private String manufacturer;

@@ -40,7 +40,7 @@ public class SpaceshipController {
     public ResponseEntity<List<SpaceshipDTO>> getAllSpaceships() {
         eventProducer.sendEvent();
         return ResponseEntity.ok(spaceshipService.findAll().stream()
-                .map(spaceship -> spaceshipMapper.spaceshipToSpaceshipDTO(spaceship))
+                .map(spaceship -> spaceshipMapper.spaceshipToSpaceshipsDTO(spaceship))
                 .collect(Collectors.toList()));
     }
 
@@ -56,7 +56,7 @@ public class SpaceshipController {
         eventProducer.sendEvent();
         Spaceship spaceship = spaceshipService.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Spaceship not found with id: " + id));
-        return ResponseEntity.ok(spaceshipMapper.spaceshipToSpaceshipDTO(spaceship));
+        return ResponseEntity.ok(spaceshipMapper.spaceshipToSpaceshipsDTO(spaceship));
     }
 
     @Operation(summary = "Create a new spaceship", description = "Creates a new spaceship in the system")
@@ -73,7 +73,7 @@ public class SpaceshipController {
                         .crewCapacity(spaceshipDTO.getCrewCapacity())
                         .build()
         );
-        return ResponseEntity.ok(spaceshipMapper.spaceshipToSpaceshipDTO(spaceship));
+        return ResponseEntity.ok(spaceshipMapper.spaceshipToSpaceshipsDTO(spaceship));
     }
 
     @Operation(summary = "Update spaceship by ID", description = "Updates a specific spaceship")
@@ -88,7 +88,7 @@ public class SpaceshipController {
             @RequestBody SpaceshipDTO spaceshipDTO) {
         eventProducer.sendEvent();
         if (spaceshipService.findById(id).isPresent()) {
-            return ResponseEntity.ok(spaceshipMapper.spaceshipToSpaceshipDTO(spaceshipService.save(
+            return ResponseEntity.ok(spaceshipMapper.spaceshipToSpaceshipsDTO(spaceshipService.save(
                     Spaceship.builder()
                             .id(id)
                             .name(spaceshipDTO.getName())
@@ -114,7 +114,7 @@ public class SpaceshipController {
         eventProducer.sendEvent();
         try {
             Spaceship updatedSpaceship = spaceshipService.updatePartial(id, updateSpaceshipDTO);
-            return ResponseEntity.ok(spaceshipMapper.spaceshipToSpaceshipDTO(updatedSpaceship));
+            return ResponseEntity.ok(spaceshipMapper.spaceshipToSpaceshipsDTO(updatedSpaceship));
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
@@ -144,7 +144,7 @@ public class SpaceshipController {
             @Parameter(description = "Name parameter to search for") @RequestParam String nameParam) {
         eventProducer.sendEvent();
         return ResponseEntity.ok(spaceshipService.findByNameParam(nameParam).stream()
-                .map(spaceship -> spaceshipMapper.spaceshipToSpaceshipDTO(spaceship))
+                .map(spaceship -> spaceshipMapper.spaceshipToSpaceshipsDTO(spaceship))
                 .collect(Collectors.toList()));
     }
 }

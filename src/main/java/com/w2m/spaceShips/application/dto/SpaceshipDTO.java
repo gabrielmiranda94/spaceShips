@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SpaceshipDTO {
 
-    private Long id;
-
     private String name;
     private String model;
     private String manufacturer;
